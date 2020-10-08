@@ -1,5 +1,5 @@
 
-module.export = (format)=> {
+module.exports = (format)=> {
      return (req,res, next)=> {
          const time = new Date().toString()
          switch (format){
