@@ -10,9 +10,10 @@ const port = 3000;
 server.use(express.json());
 //custom middleware from guided project
 //this was moved into the logger file
-server.use(logger("short"));
+
 server.use('/api/posts', postRouter);
 server.use('/api/users', userRouter);
+server.use(logger("short"));
 //server.use(morgan("combined"))
 
 server.listen(port, ()=> {

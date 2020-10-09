@@ -6,9 +6,9 @@ module.exports = (format)=> {
 
              case"short":
                  console.log(`[${time}] &  ${req.method}`)
-                     res.status(200).json({
-                         message: "it's ALIVE from short"
-                     })
+                    //  res.status(200).json({
+                    //      message: "it's ALIVE from short"
+                    //  })
                      break
 
                  case "long":
