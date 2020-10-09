@@ -25,18 +25,17 @@ function validateUserID(){
                 res.status(500).json({
                     message: "Error retrieving the user"
                 })
-            })
-            
+            })            
     }
-
-
-}
+};
 
 
 
 function validateUser() {
     return (req, res, next) => {
 
+        user = userDb.get()
+       
         if(!req.body) {
             return res.status(400).json({
                 message: "missing user data"
@@ -53,7 +52,8 @@ function validateUser() {
             next()
         }
 
-  }
+   }
+}
   
   function validatePost() {
         return (req, res, next) => {
@@ -74,7 +74,7 @@ function validateUser() {
                 next()
             }
         }
-  }
+  };
 
 module.exports = {
     validateUserID,
