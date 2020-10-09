@@ -34,8 +34,8 @@ function validateUserID(){
 function validateUser() {
     return (req, res, next) => {
 
-        user = userDb.get()
-       
+        
+        ///ask about body bc this error doesn't show up
         if(!req.body) {
             return res.status(400).json({
                 message: "missing user data"
@@ -51,6 +51,7 @@ function validateUser() {
         else {
             next()
         }
+         
 
    }
 }

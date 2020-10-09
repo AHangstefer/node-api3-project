@@ -1,4 +1,5 @@
 const express = require('express');
+const dbConfig = require('../data/dbConfig.js');
 const { validateUserID, validateUser, validatePost } = require("../middleware/validateUser.js");
 const userDb = require("../users/userDb")
 
@@ -24,7 +25,7 @@ router.post('/:id/posts', (req, res) => {
 
 router.get('/', (req, res) => {
   userDb.get()
-  .then((user)=> res.status(200).json(user))
+     .then((user)=> res.status(200).json(user))
 
       .catch((err)=> {
       console.log(err)
@@ -42,8 +43,13 @@ router.get('/:id/posts', (req, res) => {
   // do your magic!
 });
 
-router.delete('/:id', (req, res) => {
-  // do your magic!
+router.delete('/:id', validateUserID(), (req, res) => {
+
+  userDb.remove(req.user)
+  res.status(200).json({
+    message: "Why are you killing lotr characters?"
+  })
+       
 });
 
 router.put('/:id', (req, res) => {
