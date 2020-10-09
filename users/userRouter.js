@@ -45,10 +45,12 @@ router.get('/:id/posts', (req, res) => {
 
 router.delete('/:id', validateUserID(), (req, res) => {
 
-  userDb.remove(req.user)
+  userDb.remove(req.params.id)
+  .then(() =>{
   res.status(200).json({
     message: "Why are you killing lotr characters?"
   })
+})
        
 });
 
