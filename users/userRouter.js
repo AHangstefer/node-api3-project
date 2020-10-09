@@ -19,9 +19,17 @@ router.post('/', validateUser(), (req, res) => {
 
 });
 
-router.post('/:id/posts', (req, res) => {
-  // do your magic!
-});
+router.post('/:id/posts', validateUser(), validatePost(), (req, res) => {
+  // const {id} = req.params;
+  // const post = {...req.body, post_id: id };
+  //   userDb.insert(post)
+  //     .then((post)=> {
+  //       userDb.getUserPosts(post.id)
+  //       .then(post => {
+  //         res.status(201).json({post})
+  //       })
+  //       .catch(err => { res.status(500).json(err)})
+});     
 
 router.get('/', (req, res) => {
   userDb.get()
@@ -39,13 +47,18 @@ router.get('/:id', validateUserID(), (req, res) => {
    res.status(200).json(req.user)
 });
 
-router.get('/:id/posts', (req, res) => {
-  // do your magic!
+router.get('/:id/posts', validateUserID(), (req, res) => {
+  id = req.params.id
+  userDb.getUserPosts(req.user.id)
+    .then((posts)=> {
+      res.status(200).json(posts)
+    })
+
 });
 
 router.delete('/:id', validateUserID(), (req, res) => {
 
-  userDb.remove(req.params.id)
+  userDb.remove(req.user)
   .then(() =>{
   res.status(200).json({
     message: "Why are you killing lotr characters?"
