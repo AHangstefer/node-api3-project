@@ -20,6 +20,7 @@ router.post('/', validateUser(), (req, res) => {
 });
 
 router.post('/:id/posts', validateUser(), validatePost(), (req, res) => {
+  /// this is also not working
   // const {id} = req.params;
   // const post = {...req.body, post_id: id };
   //   userDb.insert(post)
@@ -57,18 +58,26 @@ router.get('/:id/posts', validateUserID(), (req, res) => {
 });
 
 router.delete('/:id', validateUserID(), (req, res) => {
-
   userDb.remove(req.user)
-  .then(() =>{
-  res.status(200).json({
-    message: "Why are you killing lotr characters?"
-  })
+    .then(() =>{
+      res.status(200).json({
+        message: "Why are you killing lotr characters?"
+    })
 })
        
 });
 
-router.put('/:id', (req, res) => {
-  // do your magic!
+router.put('/:id', validateUserID(), (req, res) => {
+ ///// this is not working
+  const {id} = req.params
+  try{
+   userDb.update(id, req.body)
+   res.status(200).json({
+        message: "User with the id ${id} has been updated" })
+   } catch (error) {
+     next(error)
+   }
+   
 });
 
 //custom middleware
